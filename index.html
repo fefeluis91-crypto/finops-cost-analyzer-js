@@ -2,69 +2,56 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>FinOps Dashboard</title>
+    <title>Dashboard FinOps Pro</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #eef2f3; display: flex; justify-content: center; padding: 50px; }
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 450px; }
-        h2 { color: #2c3e50; margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        label { display: block; margin-top: 20px; color: #7f8c8d; font-size: 0.9em; }
-        input { width: 100%; padding: 12px; margin: 8px 0 20px; border: 1px solid #dfe6e9; border-radius: 6px; box-sizing: border-box; font-size: 1em; }
-        button { width: 100%; padding: 12px; background: #2980b9; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        button:hover { background: #3498db; }
-        #resultado { margin-top: 25px; padding: 15px; border-radius: 6px; display: none; line-height: 1.6; }
-        .alerta { background: #fab1a0; color: #d63031; border-left: 5px solid #d63031; }
-        .sucesso { background: #55efc4; color: #00b894; border-left: 5px solid #00b894; }
+        body { font-family: sans-serif; text-align: center; padding: 50px; background: #f4f4f9; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; min-width: 300px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px; }
+        #resultado { margin-top: 20px; }
+        .detalhes { text-align: left; font-size: 14px; margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>FinOps Dashboard 📊</h2>
-    <label>Valor do Gasto Mensal (USD):</label>
-    <input type="number" id="valorGasto" placeholder="Ex: 2500">
-    <button onclick="gerarRelatorio()">ANALISAR NO SERVIDOR</button>
+    <div class="card">
+        <h1>Analisador de Fatura Cloud</h1>
+        <p>Clique no botão para processar o arquivo <strong>fatura.json</strong></p>
+        
+        <button onclick="gerarRelatorio()">PROCESSAR FATURA MENSAL</button>
 
-    <div id="resultado"></div>
-</div>
+        <div id="resultado">
+            </div>
+    </div>
 
-<script>
-    // ESTA É A PARTE QUE CONECTA COM O BACKEND (server.js)
-    async function gerarRelatorio() {
-        const valorDigitado = document.getElementById('valorGasto').value;
-        const display = document.getElementById('resultado');
+    <script>
+        async function gerarRelatorio() {
+            const display = document.getElementById('resultado');
+            display.innerHTML = "Carregando dados do servidor...";
 
-        if (!valorDigitado) {
-            alert("Por favor, digite um valor.");
-            return;
+            try {
+                // Chamada para a nova rota que criamos no server.js
+                const response = await fetch('http://localhost:3000/analisar-fatura');
+                
+                if (!response.ok) throw new Error("Erro ao acessar o servidor");
+
+                const data = await response.json();
+
+                // Montando o visual do relatório
+                const corStatus = data.status === 'OVER BUDGET' ? '#d9534f' : '#5cb85c';
+                
+                display.innerHTML = `
+                    <div style="border: 2px solid ${corStatus}; padding: 15px; border-radius: 5px; background: ${corStatus}10">
+                        <h2 style="color: ${corStatus}">${data.status}</h2>
+                        <p><strong>Total gasto:</strong> USD ${data.total}</p>
+                        <p><strong>Limite:</strong> USD ${data.limite}</p>
+                        <p><strong>Maior gasto (Vilão):</strong> ${data.vilao}</p>
+                        <p><strong>Excesso:</strong> USD ${data.excesso}</p>
+                    </div>
+                `;
+            } catch (error) {
+                display.innerHTML = `<p style="color: red">Erro: ${error.message}. Verifique se o server.js está rodando!</p>`;
+            }
         }
-
-        try {
-            // O site faz uma "ligação" para o servidor Node.js
-            const resposta = await fetch('http://localhost:3000/analisar', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ custo: parseFloat(valorDigitado) })
-            });
-
-            const dadosDoBack = await resposta.json();
-
-            // Exibe o resultado que veio lá do servidor (server.js)
-            display.style.display = 'block';
-            display.className = dadosDoBack.status.includes('OVER') ? 'alerta' : 'sucesso';
-            
-            display.innerHTML = `
-                <strong>Status:</strong> ${dadosDoBack.status}<br>
-                <strong>Excesso:</strong> USD ${dadosDoBack.excesso.toFixed(2)}<br>
-                <hr>
-                <small><strong>Backend diz:</strong> Processado em ${dadosDoBack.data}</small>
-            `;
-        } catch (error) {
-            display.style.display = 'block';
-            display.className = 'alerta';
-            display.innerHTML = "<strong>Erro:</strong> O servidor (Backend) não está respondendo. Verifique se rodou 'node server.js' no terminal.";
-        }
-    }
-</script>
-
+    </script>
 </body>
 </html>

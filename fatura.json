@@ -1,0 +1,7 @@
+[
+  { "servico": "AWS EC2 (Servidores)", "custo": 1200, "setor": "Desenvolvimento" },
+  { "servico": "AWS S3 (Storage)", "custo": 300, "setor": "Marketing" },
+  { "servico": "AWS RDS (Banco de Dados)", "custo": 900, "setor": "Desenvolvimento" },
+  { "servico": "CloudFront (CDN)", "custo": 150, "setor": "Vendas" },
+  { "servico": "Lambda (Serverless)", "custo": 50, "setor": "Desenvolvimento" }
+]
