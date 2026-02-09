@@ -4,11 +4,15 @@
   "description": "Um analisador de custos de infraestrutura em nuvem focado em princípios de **FinOps**, desenvolvido utilizando a metodologia **Vibe Coding**. ## 🚀 Sobre o Projeto Este script automatiza a identificação de gastos excessivos em serviços de nuvem (AWS/Azure/GCP).",
   "main": "analisadorCustos.js",
   "dependencies": {
+    "@eslint/js": "^10.0.1",
     "axios": "^1.13.5",
     "cors": "^2.8.6",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "globals": "^17.3.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^10.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
