@@ -1,30 +1,33 @@
 # 📊 FinOps Cost Analyzer (Analisador_VS)
 
-Um analisador de custos de infraestrutura em nuvem focado em princípios de **FinOps**, desenvolvido para automatizar a identificação de gastos excessivos e serviços "vilões" em faturas Cloud.
+[![Node.js CI](https://github.com/fefeluis91-crypto/finops-cost-analyzer-js/actions/workflows/ci.yml/badge.svg)](https://github.com/fefeluis91-crypto/finops-cost-analyzer-js/actions)
 
-## 🚀 Funcionalidades
+Este projeto é um analisador de custos de infraestrutura em nuvem baseado em princípios de **FinOps**. Ele automatiza a leitura de faturas e identifica desvios de orçamento e serviços com gastos excessivos.
 
-- **Análise Automática**: Processa arquivos de fatura JSON e calcula o total de gastos.
-- **Identificação de "Vilões"**: Localiza automaticamente qual serviço teve o maior custo.
-- **Status de Orçamento**: Compara o gasto total com um limite definido (Budget).
-- **Interface Web**: Dashboard simples para visualização dos resultados.
-- **Qualidade & Segurança**: Código padronizado com ESLint e testes unitários com Jest.
+## 🚀 O que este projeto faz?
+
+- **Processamento de Faturas**: Lê dados reais de faturas em formato JSON.
+- **Análise de Orçamento (Budget)**: Verifica se o gasto total ultrapassou o limite de $2.000.
+- **Identificação do "Vilão"**: Deteta automaticamente o serviço que mais pesou no bolso.
+- **API Pronta**: Disponibiliza os dados via endpoint HTTP para integração com dashboards.
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Backend**: Node.js & Express
-- **Frontend**: HTML5, CSS3 & JavaScript (Fetch API)
-- **Testes**: Jest
-- **Padronização**: ESLint
-- **Containerização**: Docker
+- **Backend**: Node.js & Express.js
+- **Testes**: Jest (cobertura total da lógica de cálculo)
+- **Qualidade**: ESLint (padrão de código profissional)
+- **Containerização**: Docker (Imagem leve baseada em Alpine)
+- **CI/CD**: GitHub Actions (Testes e Lint automáticos a cada Push)
 
-## 📦 Como Rodar o Projeto
+---
 
-### Pré-requisitos
-- Node.js instalado (v18 ou superior)
-- Ou Docker instalado
+## 📦 Como Executar
 
-### Instalação
-1. Clone o repositório:
-   ```bash
-   git clone [https://github.com/fefeluis91-crypto/finops-cost-analyzer-js.git](https://github.com/fefeluis91-crypto/finops-cost-analyzer-js.git)
+### 1. Via Docker (Recomendado - Automático)
+O Docker configura todo o ambiente (Node, dependências e servidor) automaticamente para ti.
+```bash
+# Construir a imagem
+docker build -t analisador-finops .
+
+# Executar o container
+docker run -d -p 3000:3000 --name meu-finops analisador-finops
