@@ -6,16 +6,17 @@ export default [
     {
         languageOptions: {
             globals: {
-                ...globals.node, // Isso avisa que 'require', 'process', etc. existem
-                ...globals.browser // Isso avisa que 'window', 'document', etc. existem
+                ...globals.node,
+                ...globals.browser,
+                ...globals.jest // ADICIONE ISSO: Agora o Linter aceita 'test' e 'expect'
             }
         },
         rules: {
             'indent': ['error', 4],
-            'quotes': ['error', 'single'],
+            'quotes': ['error', 'single'], // Aqui é onde ele exige aspas simples
             'semi': ['error', 'always'],
             'no-unused-vars': 'warn',
-            'no-console': 'off' // Liberamos o console.log para os seus testes
+            'no-console': 'off'
         }
     }
 ];
