@@ -1,22 +1,30 @@
-# 📊 Cloud Cost Analyzer (Node.js)
+# 📊 FinOps Cost Analyzer (Analisador_VS)
 
-Um analisador de custos de infraestrutura em nuvem focado em princípios de **FinOps**, desenvolvido utilizando a metodologia **Vibe Coding**.
-## 🚀 Sobre o Projeto
-Este script automatiza a identificação de gastos excessivos em serviços de nuvem (AWS/Azure/GCP). 
+Um analisador de custos de infraestrutura em nuvem focado em princípios de **FinOps**, desenvolvido para automatizar a identificação de gastos excessivos e serviços "vilões" em faturas Cloud.
 
-> **Nota de Versão:** Este projeto é uma variação técnica de um analisador original que desenvolvi em **Python**. Utilizei a metodologia **Vibe Coding** para realizar o port para **Node.js**, demonstrando adaptabilidade de stack e foco na entrega de valor independente da linguagem.
+## 🚀 Funcionalidades
 
+- **Análise Automática**: Processa arquivos de fatura JSON e calcula o total de gastos.
+- **Identificação de "Vilões"**: Localiza automaticamente qual serviço teve o maior custo.
+- **Status de Orçamento**: Compara o gasto total com um limite definido (Budget).
+- **Interface Web**: Dashboard simples para visualização dos resultados.
+- **Qualidade & Segurança**: Código padronizado com ESLint e testes unitários com Jest.
 
-## 🛠️ Tecnologias e Metodologia
-* **Node.js**: Runtime utilizado para o processamento.
-* **Vibe Coding**: Uso estratégico de IA para aceleração de desenvolvimento e portabilidade de código (Migrado de uma lógica original em Python).
-* **Console.table**: Interface de visualização via terminal.
+## 🛠️ Tecnologias Utilizadas
 
-## 📈 Como rodar
+- **Backend**: Node.js & Express
+- **Frontend**: HTML5, CSS3 & JavaScript (Fetch API)
+- **Testes**: Jest
+- **Padronização**: ESLint
+- **Containerização**: Docker
+
+## 📦 Como Rodar o Projeto
+
+### Pré-requisitos
+- Node.js instalado (v18 ou superior)
+- Ou Docker instalado
+
+### Instalação
 1. Clone o repositório:
-   `git clone https://github.com/SEU_USUARIO/finops-cost-analyzer-js.git`
-2. Execute o script:
-   `node analiseCustos.js`
-
----
-*Projeto criado para demonstrar agilidade técnica e visão de negócio (Redução de Custos).*
+   ```bash
+   git clone [https://github.com/fefeluis91-crypto/finops-cost-analyzer-js.git](https://github.com/fefeluis91-crypto/finops-cost-analyzer-js.git)
